@@ -12,6 +12,7 @@ function OutfitCard({card}) {
 
   function clickHanlder() {
     setItemId(card.productId);
+    document.documentElement.scrollTop = 0;
   }
 
   function deleteCard(event) {
@@ -40,8 +41,16 @@ function OutfitCard({card}) {
       </div>
       <p>{card.category}</p>
       <h6>{card.title}</h6>
-      <p>{card.original_price}</p>
-      <StarRating rating={card.rating} className="relatedStars" />
+      {card.sale_price
+        ? (
+          <p style={{ color: 'red' }}>
+            {card.sale_price}
+            &nbsp;&nbsp;
+            <strike style={{ color: 'black' }}>{card.original_price}</strike>
+          </p>
+        )
+        : <p>{card.original_price}</p>}
+      {card.rating ? <StarRating rating={card.rating} className="relatedStars" /> : <> </>}
     </div>
   );
 }
